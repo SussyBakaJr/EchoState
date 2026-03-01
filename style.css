@@ -1,0 +1,552 @@
+/* ===== BASE ===== */
+:root {
+    --text-color: #333;
+    --bg-color: #f5f3fa;
+}
+
+body.dark {
+    --text-color: #f1f5f9;
+    --bg-color: #0f172a;
+    background: var(--bg-color);
+    color: var(--text-color);
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg-color);
+    min-height: 100vh;
+    color: var(--text-color);
+    transition: background 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-x: hidden;
+}
+
+/* FIX: Particles now cover the whole screen */
+#bgParticles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+/* ===== TITLE SYSTEM ===== */
+#appTitle {
+    font-size: 42px;
+    margin-bottom: 5px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: #9f84d6;
+    transition: all 0.4s ease;
+}
+
+.tagline {
+    color: #666;
+    font-weight: 300;
+}
+
+/* ===== CARDS (GLASSMORPHISM) ===== */
+.card {
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 28px;
+    padding: 30px;
+    margin-bottom: 24px;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.07);
+}
+
+/* ===== ACTUAL CALENDAR GRID ===== */
+.mood-calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* 7 Days a week */
+    gap: 10px;
+    margin-bottom: 25px;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 15px;
+    border-radius: 20px;
+}
+
+.calendar-day {
+    aspect-ratio: 1 / 1;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: bold;
+    color: white;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: default;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+
+.calendar-day span {
+    font-size: 8px;
+    opacity: 0.8;
+}
+
+.calendar-day:hover {
+    transform: scale(1.15);
+    z-index: 2;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* ===== FORM ELEMENTS ===== */
+input, select {
+    width: 100%;
+    padding: 14px;
+    margin-top: 12px;
+    border-radius: 14px;
+    border: 1px solid rgba(0,0,0,0.08);
+    font-size: 15px;
+    box-sizing: border-box;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: #b8a4e3;
+    background: rgba(255,255,255,0.8);
+}
+
+/* Updated general button: Removed width 100% to allow row alignment */
+button {
+    background: linear-gradient(135deg, #b8a4e3, #9f84d6);
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(184, 164, 227, 0.3);
+    font-size: 15px;
+    box-sizing: border-box;
+}
+
+/* Specific button that SHOULD be full width */
+#addSongBtn {
+    width: 100%;
+    margin-top: 12px;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(184, 164, 227, 0.4);
+}
+
+button.secondary {
+    background: rgba(255, 255, 255, 0.5);
+    color: #555;
+    box-shadow: none;
+}
+
+.action-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.action-row button {
+    flex: 1; /* Makes Import/Export/Reset buttons equal width in a row */
+}
+
+.small-btn {
+    padding: 10px;
+    font-size: 12px;
+}
+
+/* ===== DASHBOARD BOXES ===== */
+.dashboard {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.box {
+    flex: 1;
+    padding: 20px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    font-size: 14px;
+    line-height: 1.6;
+    text-align: center;
+}
+.box strong {
+    display: block;
+    font-size: 1.2rem;
+    color: var(--grad1);
+    margin-top: 5px;
+}
+
+/* ===== CHART CONTAINERS ===== */
+#chartContainer {
+    width: 100%;
+    margin-top: 20px;
+    display: flex !important;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 12px;
+    justify-content: center;
+    align-items: stretch;
+}
+
+.chart-wrapper {
+    flex: 1;
+    min-width: 180px;
+    height: 220px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.canvas-container {
+    flex: 1;
+    width: 100%;
+    min-height: 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+canvas {
+    /* This forces the chart to stay inside the wrapper */
+    max-width: 100% !important;
+    max-height: 100% !important;
+    display: block;
+}
+
+.stat-title {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin: 0;
+    opacity: 0.6;
+}
+
+.stat-subtitle {
+    font-size: 10px;
+    opacity: 0.5;
+}
+
+.stats-card {
+    background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.05));
+}
+
+#statEmoji { font-size: 40px; margin: 8px 0; }
+#statValue { font-size: 20px; font-weight: 800; color: var(--grad1); }
+
+@media (max-width: 768px) {
+    #chartContainer { flex-wrap: wrap; }
+    .chart-wrapper { min-width: 100%; height: 180px; }
+}
+/* ===== INSIGHTS ===== */
+.insight {
+    border-left: 5px solid var(--grad1);
+}
+
+.insight-poetic {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--grad1);
+    margin-bottom: 10px;
+}
+
+.insight-details {
+    font-size: 1rem;
+    line-height: 1.5;
+    opacity: 0.8;
+}
+
+/* DARK MODE */
+body.dark .card {
+    background: rgba(30, 41, 59, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+body.dark .box {
+    background: rgba(15, 23, 42, 0.5);
+}
+
+body.dark input, body.dark select {
+    background: rgba(15, 23, 42, 0.6);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+body.dark .calendar-day {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+/*  MOOD VARIABLES & ANIMATIONS  */
+body.calm { background: #eef6ff; --grad1: #5a8fd8; --glow: rgba(90,143,216,0.3); }
+body.nostalgia { background: #f8e8ec; --grad1: #d07a9a; --glow: rgba(208,122,154,0.3); }
+body.healing { background: #e8f5ec; --grad1: #5fa97a; --glow: rgba(95,169,122,0.3); }
+body.sad { background: #e4e9f2; --grad1: #6c86b3; --glow: rgba(108,134,179,0.3); }
+body.hype { background: #fff1e6; --grad1: #e08a3e; --glow: rgba(224,138,62,0.3); }
+body.chaos { background: #f2e8ff; --grad1: #8b6fd6; --glow: rgba(139,111,214,0.3); }
+body.focus { background: #edf3f7; --grad1: #5f7f9f; --glow: rgba(95,127,159,0.3); }
+
+body.calm #appTitle, body.nostalgia #appTitle, body.healing #appTitle,
+body.sad #appTitle, body.hype #appTitle, body.chaos #appTitle, body.focus #appTitle {
+    color: var(--grad1);
+    text-shadow: 0 0 20px var(--glow);
+}
+
+/* SONG LIST */
+#songListContainer {
+    margin-top: 25px;
+}
+
+#songList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#songList li {
+    background: rgba(255, 255, 255, 0.4);
+    padding: 12px 18px;
+    border-radius: 16px;
+    margin-bottom: 12px;
+    display: flex; /* Keeps text on left, button on right */
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: transform 0.2s ease;
+}
+
+body.dark #songList li {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+#songList li span {
+    flex: 1;
+    line-height: 1.4;
+}
+
+#songList li span strong {
+    font-size: 16px;
+    color: var(--text-color);
+}
+
+#songList li span small {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+
+#songList li button {
+    width: 32px;      
+    height: 32px;     
+    min-width: 32px;  
+    padding: 0;       
+    margin: 0 0 0 15px; 
+    border-radius: 50%; 
+    background: rgba(0, 0, 0, 0.05);
+    color: #888;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    box-shadow: none; 
+}
+
+#songList li button:hover {
+    background: #ff4d4d; 
+    color: white;
+    transform: scale(1.1);
+}
+
+body.dark #songList li button {
+    background: rgba(255, 255, 255, 0.1);
+    color: #bbb;
+}
+/* ===== RESPONSIVE ===== */
+@media (max-width: 600px) {
+    .dashboard, .action-row { flex-direction: column; }
+    .mood-calendar { grid-template-columns: repeat(4, 1fr); } 
+}
+
+.history-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.filter-btn {
+    width: auto; 
+    padding: 8px 20px;
+    font-size: 12px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #666;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+body.dark .filter-btn { color: #ccc; }
+
+.filter-btn.active {
+    background: var(--grad1, #9f84d6);
+    color: white;
+    box-shadow: 0 4px 12px var(--glow, rgba(159, 132, 214, 0.3));
+}
+
+#trophyCase {
+    margin-bottom: -10px;
+    animation: trophyFloat 2s ease-in-out infinite;
+    cursor: help;
+}
+
+@keyframes trophyFloat {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-5px) scale(1.1); }
+}
+
+#statSubtitle {
+    line-height: 1.4;
+    font-weight: 600;
+}
+
+
+.stats-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    overflow: hidden;
+}
+
+/* The Trophy Icon */
+#trophyCase {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+    animation: trophyEntrance 0.8s ease-out, trophyFloat 3s ease-in-out infinite;
+    cursor: help;
+}
+
+/* The Streak Fire Text */
+#statSubtitle {
+    display: block;
+    margin-top: 8px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--text-color); /* Uses your existing CSS variable */
+    opacity: 0.9;
+    line-height: 1.4;
+}
+
+/* Animations */
+
+/* 1. Floating effect for the trophy */
+@keyframes trophyFloat {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-10px) rotate(5deg);
+        filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.8));
+    }
+}
+
+/* 2. Pop-in effect when the trophy first appears */
+@keyframes trophyEntrance {
+    0% {
+        transform: scale(0) rotate(-45deg);
+        opacity: 0;
+    }
+    70% {
+        transform: scale(1.2) rotate(10deg);
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+/* 3. Pulse effect for the fire emoji in the streak */
+#statSubtitle::first-line {
+    font-size: 1.1rem;
+}
+
+body.dark #trophyCase {
+    filter: drop-shadow(0 0 15px rgba(255, 223, 0, 0.7));
+}
+
+/* Responsive tweak for smaller dashboard cards */
+@media (max-width: 768px) {
+    #trophyCase {
+        font-size: 2rem;
+    }
+    #statSubtitle {
+        font-size: 0.8rem;
+    }
+}
+
+#shareBtn {
+    width: 100%;
+    margin-top: 12px;
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    color: white;
+    border: none;
+    transition: transform 0.2s ease;
+    box-shadow: 0 4px 15px rgba(110, 142, 251, 0.3);
+}
+
+#shareBtn:hover {
+    transform: translateY(-2px) scale(1.05);
+    filter: brightness(1.1);
+}
+
+#shareBtn:active {
+    transform: scale(0.95);
+}
+
+#importBtn, #exportBtn, #resetBtn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--text-color);
+    color: var(--text-color);
+    margin: 0; 
+    font-size: 15px; 
+    padding: 14px;
+}
+
+#importBtn:hover, #exportBtn:hover, #resetBtn:hover {
+    background: var(--text-color);
+    color: var(--bg-color); 
+}

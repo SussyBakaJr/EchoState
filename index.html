@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EchoState | Your Emotional Mirror</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="bgParticles"></canvas>
+    <div class="container">
+        <header>
+            <h1 id="appTitle">EchoState</h1>
+            <div id="streakBadge" class="streak-badge" style="display: none;">
+                <span id="streakFire">🔥</span> <span id="streakCount">0</span> Day Streak
+            </div>
+            <p class="tagline">A soft mirror for your emotional listening patterns.</p>
+            <button id="darkToggle" class="secondary small-btn">🌙 Toggle Theme</button>
+            <div id="authSection" style="margin-top:12px;">
+            <button id="loginBtn">Login with Google</button>
+            <button id="logoutBtn" style="display:none;">Logout</button>
+            <div id="userEmail" style="font-size:12px; opacity:0.7;"></div>
+    </div>
+        </header>
+
+        <section class="card">
+            <h2>Add a Song</h2>
+            <input type="text" id="songName" placeholder="What are you listening to?">
+            <select id="moodSelect">
+                <option value="">Select Mood</option>
+                <option value="calm">Calm</option>
+                <option value="nostalgia">Nostalgia</option>
+                <option value="healing">Healing</option>
+                <option value="sad">Sad</option>
+                <option value="hype">Hype</option>
+                <option value="chaos">Chaos</option>
+                <option value="focus">Focus</option>
+            </select>
+            <label>Energy Level: <span id="energyValue">3</span></label>
+            <input type="range" id="energySlider" min="1" max="5" value="3">
+            <button id="addSongBtn">Log This Moment</button>
+            <div class="action-row">
+                <button id="resetBtn" class="secondary small-btn">Reset Data</button>
+                <button id="exportBtn" class="secondary small-btn">Export History</button>
+                <button id="importBtn" class="secondary small-btn">Restore History</button>
+                <input type="file" id="importFile" style="display: none;" accept=".json">
+                <button id="shareBtn" class="secondary small-btn">Share Vibe</button>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>Emotional Overview</h2>
+            <h3 id="calendarMonth" style="text-align: center; margin-bottom: 15px; opacity: 0.7; font-weight: 600;">Month Year</h3>
+            <div id="moodCalendar" class="mood-calendar"></div>
+            <div class="dashboard">
+                <div class="box" id="moodBox">No listening data yet.</div>
+                <div class="goal-container">
+                    <p id="goalText" style="font-size: 12px; margin-bottom: 5px; opacity: 0.8;">0/5 tracks this week</p>
+                    <div style="width: 100%; height: 8px; background: rgba(0,0,0,0.1); border-radius: 4px; overflow: hidden;">
+                        <div id="goalBar" style="width: 0%; height: 100%; transition: width 0.5s ease;"></div>
+                    </div>
+                </div>
+                <div class="box" id="energyBox">Add songs to see energy levels.</div>
+            </div>
+            <div class="history-controls">
+                <button id="toggleAllTime" class="filter-btn active">All-Time</button>
+                <button id="toggleWeekly" class="filter-btn">This Week</button>
+            </div>
+            <div id="chartContainer">
+                <div class="chart-wrapper">
+                    <h3 class="stat-title">Mood Mix</h3>
+                    <div class="canvas-container"><canvas id="moodChart"></canvas></div>
+                    <small class="stat-subtitle">Your Palette</small>
+                </div>
+                <div class="chart-wrapper stats-card">
+                    <div id="trophyCase" style="display:none;">🥈</div>
+                    <div id="statEmoji">🎧</div>
+                    <h3 class="stat-title">Current Vibe</h3>
+                    <div id="statValue">---</div>
+                    <small id="statSubtitle">🔥 0 Day Streak</small>
+                </div>
+                <div class="chart-wrapper">
+                    <h3 class="stat-title">Energy Flow</h3>
+                    <div class="canvas-container"><canvas id="energyTrendChart"></canvas></div>
+                    <small class="stat-subtitle">Your Rhythm</small>
+                </div>
+            </div>
+        </section>
+
+        <section class="card insight">
+            <h2>Vibe Check</h2>
+            <div id="insightText">Start logging songs to reveal your emotional pattern.</div>
+        </section>
+
+        <section class="card">
+            <div id="songListContainer">
+                <h3>Recent History</h3>
+                <ul id="songList"></ul>
+            </div>
+        </section>
+    </div>
+    <canvas id="shareCanvas" width="1080" height="1920" style="display:none;"></canvas>
+    <script type="module" src="firebase.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
