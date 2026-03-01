@@ -108,3 +108,6 @@ Deployment:
 -Profile customization
 
 -Improved UI refinement and modular code structure
+
+
+⚠ Firebase configuration keys are public by design for client-side apps. Security is enforced through Firestore rules requiring authentication.
